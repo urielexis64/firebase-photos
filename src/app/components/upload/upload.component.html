@@ -3,6 +3,7 @@
     <h3>Select file:</h3>
     <div
       appNgDropFiles
+      [files]="files"
       (mouseOver)="isDropping = $event"
       [ngClass]="{ 'file-over': isDropping }"
       class="well drop-zone"
@@ -20,7 +21,7 @@
     >
       Upload to Firebase
     </button>
-    <button class="btn btn-danger">Clean</button>
+    <button (click)="cleanFiles()" class="btn btn-danger">Clean</button>
     <table class="table">
       <thead class="thead-dark">
         <tr>
@@ -30,15 +31,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>xd.jpg</td>
-          <td>12 KB</td>
+        <tr *ngFor="let file of files">
+          <td>{{ file.fileName }}</td>
+          <td>{{ file.file.size / 1024000 | number: ".2-2" }} MB</td>
           <td>
             <div class="progress">
               <div
                 class="progress-bar"
                 role="progressbar"
-                style="width: 25%"
+                [ngStyle]="{ width: file.progress + '%' }"
               ></div>
             </div>
           </td>

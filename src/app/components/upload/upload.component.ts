@@ -8,6 +8,7 @@ import { UploadImagesService } from '../../services/upload-images.service';
   styleUrls: ['./upload.component.css'],
 })
 export class UploadComponent implements OnInit {
+  isDropping: boolean = false;
   files: FileItem[] = [];
 
   constructor(public _uploadService: UploadImagesService) {}
@@ -16,5 +17,9 @@ export class UploadComponent implements OnInit {
 
   loadImages() {
     this._uploadService.loadFirebaseImages(this.files);
+  }
+
+  cleanFiles() {
+    this.files = [];
   }
 }

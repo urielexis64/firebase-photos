@@ -45,6 +45,14 @@ export class NgDropFilesDirective {
 
   private _extractFiles(fileList: FileList) {
     console.log(fileList);
+    for (const property in Object.getOwnPropertyNames(fileList)) {
+      const tempFile = fileList[property];
+      if (this._fileCanBeLoad(tempFile)) {
+        const newFile = new FileItem(tempFile);
+        this.files.push(newFile);
+      }
+    }
+    console.log(this.files);
   }
 
   //Validations
